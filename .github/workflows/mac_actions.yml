@@ -1,0 +1,22 @@
+name: mac-session
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mac:
+    runs-on: macos-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: System info
+        run: |
+          sw_vers
+          uname -m
+          sysctl -n machdep.cpu.brand_string
+          df -h /
+
+      - name: SSH session (tmate)
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 350
